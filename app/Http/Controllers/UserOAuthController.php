@@ -15,7 +15,10 @@ class UserOAuthController
     public function oauth(Request $request): RedirectResponse|Redirector
     {
         $params = [
-            'code' => sha1(time())
+            'code' => sha1(time()),
+            'state' => $request['state'],
+            'client_id' => $request['client_id'],
+            'scope' => $request['scope'],
         ];
 
         return redirect($request['redirect_uri'] . '?' . http_build_query($params));
