@@ -21,12 +21,12 @@ class UserDevicesFormatter
         $capabilities = array_map(fn (CapabilityDTO $capability) => $this->capabilityFormatter->format($capability, $includeState), $device->getCapabilities());
 
         return [
-            'id' => $device->getId(),
+            'id' => (string)$device->getId(),
             'name' => $device->getName(),
             'description' => $device->getDescription(),
             'room' => $device->getRoom(),
             'type' => $device->getType(),
-            'capabilities' => $capabilities
+            'capabilities' => $capabilities,
         ];
     }
 }

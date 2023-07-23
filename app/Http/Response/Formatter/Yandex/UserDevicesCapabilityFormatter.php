@@ -15,14 +15,19 @@ class UserDevicesCapabilityFormatter
     {
         $response = [
             'type' => $capability->getType(),
+//            'retrievable' => false,
+//            'reportable' => false,
+//            'parameters' => [
+//                'split' => false
+//            ]
         ];
 
-        if ($includeState) {
-            $response['state'] = [
-                'instance' => $capability->getInstance(),
-                'value' => $capability->isValueAsBool(),
-            ];
-        }
+//        if ($includeState) {
+//            $response['state'] = [
+//                'instance' => $capability->getInstance(),
+//                'value' => $capability->isValueAsBool(),
+//            ];
+//        }
 
         return $response;
     }

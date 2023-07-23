@@ -32,13 +32,18 @@ class UserDevicesController
     ): array {
         $devices = $devicesGettingService->get();
 
-        return [
+        $response = [
             'request_id' => $request->getXRequestId(),
             'payload' => [
-                'user_id' => 1,
-                'devices' => array_map(static fn(DeviceDTO $device) => $formatter->format($device), $devices)
+//                'user_id' => "1067793855",
+                'user_id' => "user-001",
+                'devices' => array_map(static fn(DeviceDTO $device) => $formatter->format($device, true), $devices)
             ]
         ];
+
+        Log::info('getDevices', $response);
+
+        return $response;
     }
 
     public function getStateDevices(
@@ -48,7 +53,7 @@ class UserDevicesController
         UserDevicesFormatter $formatter,
     ): array {
         Log::info('getStateDevices', $request->getAll());
-        $requestDevices = $devicesRequestDTOAssembler->create($request);
+//        $requestDevices = $devicesRequestDTOAssembler->create($request);
 
         $devices = $devicesGettingService->get();
 
@@ -81,7 +86,7 @@ class UserDevicesController
                     $targetDevice = $device;
 
                     foreach ($deviceFromRequest['capabilities'] as $capability) {
-                        if ($capability['state']['instance'] === DeviceCreatingService::CAPABILITY_TYPE) {
+                        if ($capability['state']['instance'] === DeviceCreatingService::INSTANCE) {
                             $action = $capability['state']['value'];
                         }
                     }
@@ -91,27 +96,35 @@ class UserDevicesController
         }
 
         if ($targetDevice === null) {
-            throw new BadRequestHttpException('Not found target device');
+//            throw new BadRequestHttpException('Not found target device');
         }
 
         $action ? $deviceStateToggleService->on() : $deviceStateToggleService->off();
 
-        return [
+        $response = [
             'request_id' => $request->getXRequestId(),
             'payload' => [
                 'devices' => [
                     [
-                        'id' => DeviceCreatingService::ID,
-                        'type' => DeviceCreatingService::CAPABILITY_TYPE,
-                        'state' => [
-                            'instance' => DeviceCreatingService::INSTANCE,
-                            'action_result' => [
-                                'status' => 'DONE'
+                        'id' => (string) DeviceCreatingService::ID,
+                        'capabilities' => [
+                            [
+                                'type' => DeviceCreatingService::CAPABILITY_TYPE,
+                                'state' => [
+                                    'instance' => DeviceCreatingService::INSTANCE,
+                                    'action_result' => [
+                                        'status' => 'DONE'
+                                    ]
+                                ]
                             ]
                         ]
                     ]
                 ]
             ]
         ];
+
+        Log::info('changeState response', $response);
+
+        return $response;
     }
 }
