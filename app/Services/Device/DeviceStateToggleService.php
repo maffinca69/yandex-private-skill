@@ -2,6 +2,8 @@
 
 namespace App\Services\Device;
 
+use Illuminate\Support\Facades\Log;
+
 class DeviceStateToggleService
 {
     private const SCRIPT_STATE_OFF = 'state-off.sh';
@@ -12,6 +14,8 @@ class DeviceStateToggleService
      */
     public function on(): bool
     {
+        $result = $this->execute(self::SCRIPT_STATE_ON);
+        Log::info("result on", ['result' => $result]);
         return $this->execute(self::SCRIPT_STATE_ON);
     }
 
@@ -20,15 +24,19 @@ class DeviceStateToggleService
      */
     public function off(): bool
     {
-        return $this->execute(self::SCRIPT_STATE_OFF);
+        $result = $this->execute(self::SCRIPT_STATE_OFF);
+
+        Log::info("result off", ['result' => $result]);
+
+        return $result;
     }
 
     /**
      * @param string $script
-     * @return bool
+     * @return false|string|null
      */
-    private function execute(string $script): bool
+    private function execute(string $script): false|string|null
     {
-        return (bool) shell_exec(storage_path('scripts') . DIRECTORY_SEPARATOR . $script);
+        return shell_exec(storage_path('scripts') . DIRECTORY_SEPARATOR . $script);
     }
 }
