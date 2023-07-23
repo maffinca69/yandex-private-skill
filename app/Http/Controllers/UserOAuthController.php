@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Laravel\Lumen\Http\Redirector;
 
 class UserOAuthController
 {
     /**
      * @param Request $request
-     * @return void
+     * @return RedirectResponse|Redirector
      */
-    public function oauth(Request $request): void
+    public function oauth(Request $request): RedirectResponse|Redirector
     {
-        redirect()->to($request['redirect_uri']);
+        return redirect($request['redirect_uri']);
     }
 
     /**
