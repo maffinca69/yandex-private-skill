@@ -13,8 +13,6 @@ class DeviceRequestDTOAssembler
      */
     public function create(array $deviceData): DeviceRequestDTO
     {
-        $customData = json_decode($deviceData['custom_data'] ?? [], true);
-
-        return new DeviceRequestDTO($deviceData['id'], $customData);
+        return new DeviceRequestDTO($deviceData['id'], $deviceData['custom_data'] ?? []);
     }
 }
