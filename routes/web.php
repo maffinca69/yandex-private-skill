@@ -27,8 +27,8 @@ $router->group(['prefix' => 'v1.0'], static function (Router $router) {
 
         $router->group(['prefix' => 'devices'], static function (Router $router) {
             $router->get('/', 'UserDevicesController@getDevices');
-            $router->get('query', 'UserDevicesController@getStateDevices');
-            $router->get('action', 'UserDevicesController@changeState');
+            $router->post('query', 'UserDevicesController@getStateDevices');
+            $router->post('action', 'UserDevicesController@changeState');
         });
     });
 });

@@ -18,7 +18,7 @@ class UserDevicesFormatter
      */
     public function format(DeviceDTO $device, bool $includeState = false): array
     {
-        $capabilities = array_map(static fn (CapabilityDTO $capability) => $this->capabilityFormatter->format($capability, $includeState), $device->getCapabilities());
+        $capabilities = array_map(fn (CapabilityDTO $capability) => $this->capabilityFormatter->format($capability, $includeState), $device->getCapabilities());
 
         return [
             'id' => $device->getId(),
