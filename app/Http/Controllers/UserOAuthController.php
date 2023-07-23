@@ -11,10 +11,10 @@ class UserOAuthController
 {
     /**
      * @param Request $request
-     * @return RedirectResponse|Redirector
      */
-    public function oauth(Request $request): RedirectResponse|Redirector
+    public function oauth(Request $request)
     {
+        Log::info('oauth', $request->all());
         $params = $request->all();
         $params['code'] = sha1(time());
 
@@ -22,7 +22,7 @@ class UserOAuthController
 
         Log::info($url);
 
-        return redirect($url);
+        return file_get_contents($url);
     }
 
     /**

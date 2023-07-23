@@ -13,4 +13,9 @@ abstract class YandexSmartHomeRequest extends AbstractRequest
     {
         return $this->request->header('X-Request-Id', 5);
     }
+
+    public function getAll()
+    {
+        return $this->request->all();
+    }
 }

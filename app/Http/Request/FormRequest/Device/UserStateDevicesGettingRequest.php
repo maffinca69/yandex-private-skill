@@ -12,7 +12,7 @@ class UserStateDevicesGettingRequest extends YandexSmartHomeRequest
     public function rules(): array
     {
         return [
-            'devices' => ['required', 'array'],
+//            'devices' => ['required', 'array'],
         ];
     }
 

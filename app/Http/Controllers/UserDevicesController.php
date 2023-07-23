@@ -12,6 +12,7 @@ use App\Services\Device\DevicesGettingService;
 use App\Services\Device\DeviceStateGettingService;
 use App\Services\Device\DeviceStateToggleService;
 use App\Services\Device\DTO\DeviceDTO;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class UserDevicesController
@@ -46,6 +47,7 @@ class UserDevicesController
         DevicesGettingService $devicesGettingService,
         UserDevicesFormatter $formatter,
     ): array {
+        Log::info('getStateDevices', $request->getAll());
         $requestDevices = $devicesRequestDTOAssembler->create($request);
 
         $devices = $devicesGettingService->get();
@@ -69,6 +71,7 @@ class UserDevicesController
         DeviceStateToggleService $deviceStateToggleService,
         DevicesGettingService $devicesGettingService
     ): array {
+        Log::info('changeState', $request->getAll());
         $devices = $devicesGettingService->get();
         $targetDevice = null;
         $action = null;
