@@ -12,7 +12,7 @@ class UserChangeStateDevicesRequest extends YandexSmartHomeRequest
     public function rules(): array
     {
         return [
-            'payload.devices' => ['required', 'array']
+//            'payload.devices' => ['required', 'array']
         ];
     }
 

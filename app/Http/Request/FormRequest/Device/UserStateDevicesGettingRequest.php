@@ -13,7 +13,6 @@ class UserStateDevicesGettingRequest extends YandexSmartHomeRequest
     {
         return [
             'devices' => ['required', 'array'],
-            'devices.*.id' => ['required', 'string'],
         ];
     }
 
