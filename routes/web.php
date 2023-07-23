@@ -34,5 +34,8 @@ $router->group(['prefix' => 'v1.0'], static function (Router $router) {
 });
 
 $router->get('auth', 'UserOAuthController@oauth');
+$router->post('auth', 'UserOAuthController@oauth');
 $router->get('get-token', 'UserOAuthController@getToken');
+$router->post('get-token', 'UserOAuthController@getToken');
 $router->get('refresh-token', 'UserOAuthController@refreshToken');
+$router->post('refresh-token', 'UserOAuthController@refreshToken');
