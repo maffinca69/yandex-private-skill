@@ -21,6 +21,6 @@ class UserChangeStateDevicesRequest extends YandexSmartHomeRequest
      */
     public function getDevices(): array
     {
-        return $this->request->get('payload.devices');
+        return $this->request->get('payload')['devices'] ?? [];
     }
 }

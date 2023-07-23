@@ -74,11 +74,11 @@ class UserDevicesController
         $action = null;
         foreach ($request->getDevices() as $deviceFromRequest) {
             foreach ($devices as $device) {
-                if ($deviceFromRequest['id'] === $device->getId()) {
+                if ($deviceFromRequest['id'] == $device->getId()) {
                     $targetDevice = $device;
 
                     foreach ($deviceFromRequest['capabilities'] as $capability) {
-                        if ($capability['state']['type'] === DeviceCreatingService::CAPABILITY_TYPE) {
+                        if ($capability['state']['instance'] === DeviceCreatingService::CAPABILITY_TYPE) {
                             $action = $capability['state']['value'];
                         }
                     }
