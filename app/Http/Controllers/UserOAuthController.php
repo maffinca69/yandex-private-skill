@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Laravel\Lumen\Http\Redirector;
 
 class UserOAuthController
@@ -21,7 +22,11 @@ class UserOAuthController
             'scope' => $request['scope'],
         ];
 
-        return redirect($request['redirect_uri'] . '?' . http_build_query($params));
+        $url = $request['redirect_uri'] . '?' . http_build_query($params);
+
+        Log::info($url);
+
+        return redirect($url);
     }
 
     /**
